@@ -24,7 +24,7 @@ const parse = async (markdown: string, css: string = '') => {
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeHighlight)
+    .use(rehypeHighlight, { languages })
     .use(rehypeMinifyWhitespace)
     .use(rehypeStringify)
     .process(`${links}<style>${minifiedCss}</style>\n\n${markdown}`)
@@ -58,7 +58,7 @@ export const useParser = (
           setElement(file.result);
           hideError();
         });
-    })().catch(() => displayError());
+    })().catch((e) => displayError());
   }, [markdown, css]);
 
   return { element, html };

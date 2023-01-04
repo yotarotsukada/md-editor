@@ -10,6 +10,7 @@ declare global {
   const hyphenateDate: typeof import('./utils/hyphenateDate')['hyphenateDate']
   const intoShadowDom: typeof import('./utils/intoShadowDom')['intoShadowDom']
   const keyframes: typeof import('@emotion/react')['keyframes']
+  const languages: typeof import('./utils/languages')['languages']
   const lazy: typeof import('react')['lazy']
   const memo: typeof import('react')['memo']
   const startTransition: typeof import('react')['startTransition']
