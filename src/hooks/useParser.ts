@@ -27,9 +27,7 @@ const parse = async (markdown: string, css: string = '') => {
     .use(rehypeHighlight)
     .use(rehypeMinifyWhitespace)
     .use(rehypeStringify)
-    .process(
-      `${links}<article class="shadow-root">\n\n${markdown}</article><style>${minifiedCss}</style>`
-    )
+    .process(`${links}<style>${minifiedCss}</style>\n\n${markdown}`)
     .then(({ value: html }) => {
       if (typeof html === 'string') {
         return html;
