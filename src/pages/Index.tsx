@@ -5,7 +5,7 @@ export const Index = () => {
     md: 'Markdown',
     css: 'CSS',
   } as const;
-  const { currentMode, nextMode, toggleMode } = useMode(modes);
+  const { currentMode, toggleMode } = useMode(modes);
   const { cssInput, setCssInput, resetToDefault } = useCssInput();
   const { markdownInput, setMarkdownInput } = useMarkdownInput('# ');
   const inputValue = currentMode === 'md' ? markdownInput : cssInput;
@@ -33,8 +33,6 @@ export const Index = () => {
     toggleMode();
     inputRef.current?.scrollTo({ top: 0 });
   };
-
-  const [showFooter, setShowFooter] = useState(false);
 
   const [isCopied, setIsCopied] = useState(false);
   const handleClickCopy = () => {
@@ -71,14 +69,9 @@ export const Index = () => {
             onChange={handleInputChange}
             onScroll={currentMode === 'md' ? handleInputScroll : undefined}
           />
-          {showFooter && (
+          {currentMode === 'css' && (
             <InputFooter>
-              {currentMode === 'css' && (
-                <FooterButton onClick={resetToDefault}>Reset</FooterButton>
-              )}
-              <FooterButton onClick={handleToggleMode}>
-                Edit {modes[nextMode as keyof typeof modes]}
-              </FooterButton>
+              <FooterButton onClick={resetToDefault}>Reset</FooterButton>
             </InputFooter>
           )}
           {errorOccurred && (
@@ -86,9 +79,13 @@ export const Index = () => {
               Error occurred. Check your syntax.
             </ErrorSnackbar>
           )}
-          <FooterToggleButton onClick={() => setShowFooter((cur) => !cur)}>
-            {showFooter ? '∨' : '∧'}
-          </FooterToggleButton>
+          <ModeToggleButton onClick={handleToggleMode}>
+            {currentMode === 'md' ? (
+              <Icon icon="material-symbols:palette" color="white" width={20} />
+            ) : (
+              <Icon icon="ri:markdown-fill" color="white" width={20} />
+            )}
+          </ModeToggleButton>
         </InputWrapper>
         <OutputArea
           ref={outputRef}
@@ -158,29 +155,32 @@ const InputTextarea = styled.textarea({
   resize: 'none',
 });
 
-const FooterToggleButton = styled.button({
+const ModeToggleButton = styled.button({
   position: 'absolute',
   width: 32,
   height: 32,
   bottom: 8,
   left: 16,
+  padding: 0,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   border: 'none',
   borderRadius: 16,
-  backgroundColor: 'rgba(256, 256, 256, 0.5)',
+  backgroundColor: 'rgba(256, 256, 256, 0.3)',
   fontWeight: 600,
   fontSize: 12,
-  opacity: 0.3,
   transition: '0.1s',
 
   ':hover': {
-    opacity: 1,
+    backgroundColor: 'rgba(256, 256, 256, 0.5)',
   },
 });
 
 const InputFooter = styled.div({
+  position: 'absolute',
+  bottom: 0,
+  right: 0,
   display: 'flex',
   padding: '8px 24px',
   justifyContent: 'right',

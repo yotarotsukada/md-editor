@@ -3,6 +3,7 @@ export {}
 declare global {
   const Bubble: typeof import('./components/Bubble')['Bubble']
   const ErrorSnackbar: typeof import('./components/ErrorSnackbar')['ErrorSnackbar']
+  const Icon: typeof import('@iconify/react')['Icon']
   const copyToClipboard: typeof import('./utils/copyToClipboard')['copyToClipboard']
   const createRef: typeof import('react')['createRef']
   const exportAs: typeof import('./utils/exportAs')['exportAs']

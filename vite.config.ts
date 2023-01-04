@@ -15,6 +15,9 @@ export default defineConfig({
         {
           '@emotion/react': ['keyframes'],
         },
+        {
+          '@iconify/react': ['Icon'],
+        },
       ],
       dirs: ['components', 'templates', 'hooks', 'utils'],
       dts: true,
