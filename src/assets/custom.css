@@ -1,4 +1,4 @@
-.shadow-root {
+:host {
   /* main colors */
   --color-dark: #007032;
   --color-default: #009944;
@@ -56,6 +56,11 @@ blockquote p {
 
 code {
   font-family: Consolas, Monaco, monospace;
+}
+p > code {
+  padding: 0 0.25rem;
+  background-color: var(--color-gray);
+  border-radius: 4px;
 }
 
 h1 {
